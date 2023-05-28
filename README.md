@@ -35,6 +35,7 @@
 ### About larablogs-vue
     
     Larablogs is a laravel + vue js blog project and it is devidable into 2 parts/branches :
-     - bal laravel + vue js knowledge practice with passport api and authentication .
-     - Time notification, comment using pusher as service provider.
+     - Global laravel + vue js knowledge practice with passport api and authentication .
+     - Real-Time notification, comment using pusher as service provider.
+
 
