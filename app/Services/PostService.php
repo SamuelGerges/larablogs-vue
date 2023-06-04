@@ -8,7 +8,7 @@ class PostService
 {
     public function getPosts()
     {
-         return Post::with('user')->latest()->get();
+         return Post::with('user')->latest()->paginate(1);
     }
 
     public function createPost($data) : Product

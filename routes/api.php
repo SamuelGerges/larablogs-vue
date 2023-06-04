@@ -18,6 +18,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(PostController::class)->prefix('posts')->group(function (){
-    Route::get('/','index');
+
+Route::apiResource('posts',PostController::class);
+Route::get('category/{slug}/posts','PostController@showCourseByCategory');
+Route::get('search-post/{query}','PostController@searchPosts');
+Route::apiResource('categories',CategoryController::class);
+
+
+
+Route::post('register',[\App\Http\Controllers\API\UserController::class,'register']);
+Route::post('login',[\App\Http\Controllers\API\UserController::class,'login']);
+
+Route::middleware('auth:api')->group(function (){
+
 });
