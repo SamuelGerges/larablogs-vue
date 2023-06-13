@@ -5314,18 +5314,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      firstName: '',
-      lastName: '',
+      name: '',
       email: '',
       password: ''
     };
   },
   computed: {
-    firstNameError: function firstNameError() {
-      return this.firstName.length > 0 && this.firstName.length < 4;
-    },
-    lastNameError: function lastNameError() {
-      return this.lastName.length > 0 && this.lastName.length < 4;
+    nameError: function nameError() {
+      return this.name.length > 0 && this.name.length < 4;
     },
     emailError: function emailError() {
       return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email) && this.email.length > 0;
@@ -5334,7 +5330,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.password.length > 0 && this.password.length < 4;
     },
     isValidForm: function isValidForm() {
-      return this.firstName.length >= 4 && this.lastName.length >= 4 && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email) && this.password.length >= 4;
+      return this.name.length >= 4 && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email) && this.password.length >= 4;
     }
   },
   methods: {
@@ -5946,63 +5942,32 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.firstName,
-      expression: "firstName"
+      value: _vm.name,
+      expression: "name"
     }],
     staticClass: "form-control",
     attrs: {
       type: "text",
-      placeholder: "firstName"
+      placeholder: "name"
     },
     domProps: {
-      value: _vm.firstName
+      value: _vm.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.firstName = $event.target.value;
+        _vm.name = $event.target.value;
       }
     }
   }), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.firstNameError,
-      expression: "firstNameError"
+      value: _vm.nameError,
+      expression: "nameError"
     }],
     staticClass: "text-danger"
-  }, [_vm._v("\n                                ... first name is too short\n                            ")])]), _vm._v(" "), _c("div", {
-    staticClass: "form-group"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.lastName,
-      expression: "lastName"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      placeholder: "lastName"
-    },
-    domProps: {
-      value: _vm.lastName
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.lastName = $event.target.value;
-      }
-    }
-  }), _vm._v(" "), _c("div", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.lastNameError,
-      expression: "lastNameError"
-    }],
-    staticClass: "text-danger"
-  }, [_vm._v("\n                                ... last name is too short\n                            ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                ... the name is too short\n                            ")])]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("input", {
     directives: [{

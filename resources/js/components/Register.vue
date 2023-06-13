@@ -15,17 +15,12 @@
                         <form action="" method="post" novalidate>
                             <h2 class="text-center">Create New Account</h2>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="firstName" v-model="firstName">
-                                <div v-show="firstNameError" class="text-danger">
-                                    ... first name is too short
+                                <input type="text" class="form-control" placeholder="name" v-model="name">
+                                <div v-show="nameError" class="text-danger">
+                                    ... the name is too short
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="lastName" v-model="lastName">
-                                <div v-show="lastNameError" class="text-danger">
-                                    ... last name is too short
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <input type="email" class="form-control" placeholder="email" v-model="email">
                                 <div v-show="emailError" class="text-danger">
@@ -65,19 +60,16 @@
 export default {
     data() {
         return {
-            firstName: '',
-            lastName: '',
+            name: '',
             email: '',
             password: '',
         }
     },
     computed: {
-        firstNameError() {
-            return this.firstName.length > 0 && this.firstName.length < 4;
+        nameError() {
+            return this.name.length > 0 && this.name.length < 4;
         },
-        lastNameError() {
-            return this.lastName.length > 0 && this.lastName.length < 4;
-        },
+
         emailError() {
             return !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) && this.email.length > 0;
         },
@@ -85,8 +77,7 @@ export default {
             return this.password.length > 0 && this.password.length < 4;
         },
         isValidForm() {
-            return this.firstName.length >= 4 &&
-                this.lastName.length >= 4 &&
+            return this.name.length >= 4 &&
                 (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) &&
                 this.password.length >= 4;
         },

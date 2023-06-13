@@ -25,8 +25,7 @@ class UserRequest extends ApiRequest
     public function rules()
     {
         return [
-            'firstName' => 'required|string',
-            'lastName' => 'required|string',
+            'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required',
         ];
