@@ -29,6 +29,7 @@ Route::apiResource('categories',CategoryController::class);
 Route::post('register',[\App\Http\Controllers\API\UserController::class,'register']);
 Route::post('login',[\App\Http\Controllers\API\UserController::class,'login']);
 
-Route::middleware('auth:api')->group(function (){
-
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('user-details',[\App\Http\Controllers\API\UserController::class,'getDetails']);
+    Route::post('create-comment',[\App\Http\Controllers\API\CommentController::class,'store']);
 });

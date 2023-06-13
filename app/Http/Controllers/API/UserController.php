@@ -46,4 +46,9 @@ class UserController extends Controller
         $response['user'] = $user;
         return $this->sendResponse($response);
     }
+
+    public function getDetails()
+    {
+        
+    }
 }

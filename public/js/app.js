@@ -5224,11 +5224,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      post: ''
+      post: '',
+      body: '',
+      post_id: '',
+      comments: []
     };
   },
   created: function created() {
     this.getPost();
+    this.updateToken();
   },
   methods: {
     getPost: function getPost() {
@@ -5236,9 +5240,34 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/posts/' + this.$route.params.slug).then(function (res) {
         console.log(res);
         _this.post = res.data;
+        _this.post_id = _this.post.id;
+        _this.comments = _this.post.comments;
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    AddComment: function AddComment() {
+      var _this2 = this;
+      var body = this.body,
+        post_id = this.post_id;
+      axios.post('/api/create-comment/', {
+        body: body,
+        post_id: post_id
+      }).then(function (res) {
+        console.log(res.data);
+        _this2.comments.unshift(res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    updateToken: function updateToken() {
+      var token = JSON.parse(localStorage.getItem('userToken'));
+      this.$store.commit('setUserToken', token);
+    }
+  },
+  computed: {
+    isLogged: function isLogged() {
+      return this.$store.getters.isLogged;
     }
   }
 });
@@ -5747,7 +5776,7 @@ var render = function render() {
     staticClass: "float-right"
   }, [_c("strong", {
     staticClass: "badge badge-info p-1"
-  }, [_vm._v(_vm._s(_vm.post.comments_count))]), _vm._v(" comments")])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("img", {
+  }, [_vm._v(_vm._s(_vm.comments.length))]), _vm._v(" comments")])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("img", {
     staticClass: "img-fluid rounded",
     staticStyle: {
       width: "900px",
@@ -5757,7 +5786,66 @@ var render = function render() {
       src: /img/ + _vm.post.image,
       alt: ""
     }
-  }), _vm._v(" "), _c("hr"), _vm._v("\n        " + _vm._s(_vm.post.body) + "\n        "), _c("hr"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._l(_vm.post.comments, function (comment, index) {
+  }), _vm._v(" "), _c("hr"), _vm._v("\n        " + _vm._s(_vm.post.body) + "\n        "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "card my-4"
+  }, [_c("h5", {
+    staticClass: "card-header"
+  }, [_vm._v("Add a Comment:")]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("form", [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.post_id,
+      expression: "post_id"
+    }],
+    attrs: {
+      type: "hidden",
+      name: "post_id"
+    },
+    domProps: {
+      value: _vm.post_id
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.post_id = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.body,
+      expression: "body"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      rows: "3"
+    },
+    domProps: {
+      value: _vm.body
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.body = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      type: "submit"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.AddComment.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("Submit")])])])]), _vm._v(" "), _vm._l(_vm.post.comments, function (comment, index) {
     return _c("div", {
       key: index,
       staticClass: "media mb-4"
@@ -5776,29 +5864,7 @@ var render = function render() {
     }, [_vm._v(_vm._s(comment.user.name))]), _vm._v("\n                " + _vm._s(comment.body) + "\n            ")])]);
   })], 2)]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card my-4"
-  }, [_c("h5", {
-    staticClass: "card-header"
-  }, [_vm._v("Add a Comment:")]), _vm._v(" "), _c("div", {
-    staticClass: "card-body"
-  }, [_c("form", [_c("div", {
-    staticClass: "form-group"
-  }, [_c("textarea", {
-    staticClass: "form-control",
-    attrs: {
-      rows: "3"
-    }
-  })]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary",
-    attrs: {
-      type: "submit"
-    }
-  }, [_vm._v("Submit")])])])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
