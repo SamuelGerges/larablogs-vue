@@ -84,7 +84,11 @@ export default {
     },
     methods :{
         submitRegister(){
-            console.log('submitted')
+            console.log('submitted');
+            // this.$store.commit('setUserToken',{userToken:'SamuelGergesAbdallah'});
+            // console.log(this.$store.getters.isLogged)
+            let {name,email,password} =this;
+            this.$store.dispatch('RegisterUser',{name,email,password})
         },
     }
 }

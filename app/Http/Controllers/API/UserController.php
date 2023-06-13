@@ -15,14 +15,12 @@ class UserController extends Controller
 
     public function register(UserRequest $request)
     {
-        $data = [
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => $request->get('password'),
-        ];
+        $data = $request->validated();
 
         $user = User::create($data);
+        $token = $user->createToken('api_token')->plainTextToken;
         $response = [
+            'token' => $token,
             'user' => $user
         ];
         return $this->sendResponse($response);
@@ -44,8 +42,8 @@ class UserController extends Controller
             ]);
         }
         $user = auth()->user();
-        $data['token'] = $user->createToken('api_token')->plainTextToken;
-        $data['user'] = $user;
-        return $this->sendResponse($data);
+        $response['token'] = $user->createToken('api_token')->plainTextToken;
+        $response['user'] = $user;
+        return $this->sendResponse($response);
     }
 }
