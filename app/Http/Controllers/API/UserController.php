@@ -49,6 +49,6 @@ class UserController extends Controller
 
     public function getDetails()
     {
-        
+        return response()->json(auth()->user());
     }
 }

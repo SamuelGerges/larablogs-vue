@@ -22,6 +22,7 @@ class PostController extends Controller
 
     public function index()
     {
+
         $posts = $this->postService->getPosts();
         foreach ($posts as $post) {
             $post->setAttribute('added_at', $post->created_at->diffForHumans());

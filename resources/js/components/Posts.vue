@@ -93,7 +93,7 @@ export default {
                     this.posts = res.data;
                     localStorage.setItem('posts', JSON.stringify(this.posts))
                 })
-                .then(err => console.log(err))
+                .catch(err => console.log(err))
         },
     },
 

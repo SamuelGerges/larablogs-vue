@@ -33,6 +33,7 @@ Vue.component('login', require('./components/Login.vue').default);
 
 import router from './routes/routes';
 import Vuex from 'vuex';
+import Axios from 'axios';
 
 Vue.use(Vuex)
 
@@ -40,11 +41,23 @@ const store = new Vuex.Store({
      // store consist of state|action|mutation|getters
     state : {
         userToken : null,
+        user : null,
+        EditedPost: {}
+
     },
     getters : { // center or way to collect data
         isLogged(state){
           return !!state.userToken;
         },
+        isAdmin(state) {
+            if (state.user) {
+                return state.user.is_admin
+            }
+            return null
+        },
+        PostToEdit(state) {
+            return state.EditedPost
+        }
     },
     mutations :{
         // setToken  && clearToken
@@ -56,6 +69,20 @@ const store = new Vuex.Store({
         removeUserToken(state){
             state.userToken = null;
             localStorage.removeItem('userToken');
+        },
+        setUser(state,user){
+            state.user = user;
+        },
+        logout(state){
+            state.userToken = null;
+            localStorage.removeItem('userToken');
+            window.location.pathname = '/'
+        },
+        PostToEdit(state) {
+            return state.EditedPost
+        },
+        EditPost(state, post) {
+            state.EditedPost = post;
         }
     },
     actions: {
@@ -72,8 +99,15 @@ const store = new Vuex.Store({
         LoginUser({commit},payload){
             axios.post('/api/login',payload)
                 .then(res =>{
-                    console.log(res)
                     commit('setUserToken',res.data.token)
+                    axios.get('/api/user-details/')
+                        .then(res =>{
+                            console.log(res.data)
+                            commit('setUser', res.data.user)
+                        })
+                        .catch(err =>{
+                            console.log(err)
+                        })
                 })
                 .catch(err =>{
                     console.log(err)
